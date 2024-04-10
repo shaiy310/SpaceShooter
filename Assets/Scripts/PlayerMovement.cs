@@ -6,7 +6,6 @@ using UnityEngine;
 
 public class NewBehaviourScript : MonoBehaviour
 {
-
     // Camera rotation
     [SerializeField] GameObject playerCamera;
     float mouseX;
