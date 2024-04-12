@@ -47,3 +47,6 @@ TagManager:
   - name: Buttons
     uniqueID: 2177735393
     locked: 0
+  - name: Shop
+    uniqueID: 2152948525
+    locked: 0
