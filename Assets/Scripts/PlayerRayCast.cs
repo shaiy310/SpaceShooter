@@ -37,15 +37,7 @@ public class PlayerRayCast : MonoBehaviour
             Instantiate(weapon.Ammo.Bullet,
                 transform.TransformPoint(shootingPositions[state]),
                 Quaternion.Euler(rotation)
-                //Quaternion.identity,
-            //Quaternion.AngleAxis(90, Vector3.right),
-                //transform
             );
-
-            //if (Physics.Raycast(origin, cameraPos.transform.forward, out hit, maxDistance, rayCastHitable)) {
-            //    hit.transform.GetComponent<MeshRenderer>().material.color = Color.red;
-
-            //}
         }
     }
 }

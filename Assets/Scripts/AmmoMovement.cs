@@ -16,4 +16,9 @@ public class AmmoMovement : MonoBehaviour
     {
         transform.Translate(speed * Time.deltaTime * Vector3.up);
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        Destroy(gameObject);
+    }
 }
