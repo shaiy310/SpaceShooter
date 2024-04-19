@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0bd7858ed7c21f74fa445eef464b4a6c, type: 3}
-  m_Name: New Weapon Base
+  m_Name: UMP45
   m_EditorClassIdentifier: 
-  gunPrefab: {fileID: 100000, guid: cd8d56469cf64654eaa21e15c6ae7c18, type: 3}
+  gunPrefab: {fileID: 100000, guid: 5112e6444b23577429168ceb76476ae4, type: 3}
   ammo: {fileID: 11400000, guid: cae06cae9d0155644abbeae7cbd0593d, type: 2}
   weapon:
     damage: 0
