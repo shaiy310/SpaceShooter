@@ -7,7 +7,9 @@ public class WeaponBase : ScriptableObject
 {
     [SerializeField] GameObject gunPrefab;
     [SerializeField] AmmoBase ammo;
-
-
+    [SerializeField] WeaponStats weapon;
+    
     public AmmoBase Ammo => ammo;
+
+    public GameObject GunPrefab => gunPrefab;
 }
