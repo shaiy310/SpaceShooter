@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
+public enum State { Standing, Walking, Jumping, Bending}
 public class NewBehaviourScript : MonoBehaviour
 {
     // Camera rotation
@@ -23,7 +24,6 @@ public class NewBehaviourScript : MonoBehaviour
     bool isWalking;
 
     // Gravity
-    float radius;
     [SerializeField] LayerMask groundLayerMask;
     [SerializeField] Transform HeightOfSphereAboveGround;
     [SerializeField] bool groundCheck;
@@ -33,6 +33,8 @@ public class NewBehaviourScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Cursor.visible = false;
+
         // Rotation
         lookSpeed = 600f;
 
@@ -43,20 +45,19 @@ public class NewBehaviourScript : MonoBehaviour
 
         // Gravity
         groundCheck = false;
-        radius = 0.5f;
         gravity = -9.81f;
     }
 
     // Update is called once per frame
     void Update()
     {
-        cameraRotation();
+        CameraRotation();
         Movement();
-        isTouchTheGround();
+        IsTouchTheGround();
         Jump();
     }
 
-    void cameraRotation()
+    void CameraRotation()
     {
         mouseX = Input.GetAxis("Mouse X") * lookSpeed * Time.deltaTime;
         transform.Rotate(0, mouseX, 0);
@@ -74,14 +75,7 @@ public class NewBehaviourScript : MonoBehaviour
         xAxis = Input.GetAxis("Horizontal") * Time.deltaTime;
         zAxis = Input.GetAxis("Vertical") * Time.deltaTime;
 
-        if (Input.GetKey(KeyCode.Z))
-        {
-            isWalking = true;
-        }
-        else
-        {
-            isWalking = false;
-        }
+        isWalking = Input.GetKey(KeyCode.Z);
 
         Bend();
         WalkOrRun(isWalking);
@@ -90,24 +84,28 @@ public class NewBehaviourScript : MonoBehaviour
         cc.Move(localDirection);
     }
 
-    void isTouchTheGround()
+    void IsTouchTheGround()
     {
-        if (Physics.CheckSphere(HeightOfSphereAboveGround.position, radius, groundLayerMask))
+        if (Physics.CheckSphere(HeightOfSphereAboveGround.position, HeightOfSphereAboveGround.localScale.y / 2, groundLayerMask)) {
             groundCheck = true;
-        else
+        }
+        else {
             groundCheck = false;
+        }
 
-        if (!groundCheck)
+        if (!groundCheck) {
             gravitymove.y += gravity * Time.deltaTime;
-        else
+        }
+        else { 
             gravitymove.y = 0;
+        }
     }
 
     void Jump()
     {
         if (Input.GetButtonDown("Jump") && groundCheck)
         {
-            gravitymove.y += 10;
+            gravitymove.y += 4f;
         }
 
         cc.Move(gravitymove * Time.deltaTime);
@@ -115,14 +113,12 @@ public class NewBehaviourScript : MonoBehaviour
 
     void Bend()
     {
-        if (Input.GetKey(KeyCode.X))
-        {
-            playerCamera.transform.localPosition = new Vector3(0, 0.8f, 0);
+        if (Input.GetKeyDown(KeyCode.X)) {
+            playerCamera.transform.localPosition += Vector3.down;
             isWalking = true;
-        }
-        else
-        {
-            playerCamera.transform.localPosition = new Vector3(0, 1.8f, 0);
+
+        } else if (Input.GetKeyUp(KeyCode.X)) {
+            playerCamera.transform.localPosition += Vector3.up;
         }
     }
 
