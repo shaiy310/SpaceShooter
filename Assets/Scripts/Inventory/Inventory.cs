@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Inventory : MonoBehaviour
@@ -8,6 +9,10 @@ public class Inventory : MonoBehaviour
     [SerializeField] WeaponBase[] weapons;
     [SerializeField] RenderTexture renderTexture;
     [SerializeField] Camera weaponCamera;
+    [SerializeField] TextMeshProUGUI weaponName;
+    [SerializeField] GameObject mainMenu;
+    [SerializeField] GameObject inventory;
+    [SerializeField] GameObject upgrade;
     private GameObject currentWeaponInstance;
     private int selectedOption;
 
@@ -30,7 +35,7 @@ public class Inventory : MonoBehaviour
             selectedOption = 0;
         }
 
-        // Upate the next weapon
+        UpdateWeapon();
     }
 
     public void PrevOption()
@@ -42,7 +47,7 @@ public class Inventory : MonoBehaviour
             selectedOption = weapons.Length - 1;
         }
 
-        // Upate the next weapon
+        UpdateWeapon();
     }
 
     private void UpdateWeapon()
@@ -57,5 +62,19 @@ public class Inventory : MonoBehaviour
         currentWeaponInstance = Instantiate(currentWeapon.GunPrefab);
         currentWeaponInstance.transform.position = weaponCamera.transform.position + weaponCamera.transform.forward * 2f;
         weaponCamera.targetTexture = renderTexture;
+        weaponName.text = currentWeapon.name;
+    }
+
+    public void Back()
+    {
+        inventory.gameObject.SetActive(false);
+        mainMenu.gameObject.SetActive(true);
+    }
+
+    public void Upgrade()
+    {
+        // TODO: create the upgrade window
+        inventory.gameObject.SetActive(false);
+        upgrade.gameObject.SetActive(true);
     }
 }
