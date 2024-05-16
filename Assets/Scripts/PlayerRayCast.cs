@@ -46,14 +46,8 @@ public class PlayerRayCast : MonoBehaviour
             playShotAnim.SetBool("isBurstShot", false);
         }
 
-        if (Input.GetKey(KeyCode.E))
-        {
-            // Reolad function
-            playShotAnim.SetBool("isReload", true);
-        }
-        else
-        {
-            playShotAnim.SetBool("isReload", false);
-        }
+        // Reolad function
+        playShotAnim.SetBool("isReload", Input.GetKey(KeyCode.E));
+
     }
 }
