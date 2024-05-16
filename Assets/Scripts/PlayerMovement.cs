@@ -30,6 +30,10 @@ public class PlayerMovement : MonoBehaviour
     float gravity;
     Vector3 gravitymove;
 
+    // Animations
+    Animator playerMovementAnim;
+    bool animateMove;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -40,12 +44,15 @@ public class PlayerMovement : MonoBehaviour
 
         // Movement
         cc = GetComponent<CharacterController>();
-        runSpeed = 7f;
-        walkSpeed = 3f;
+        runSpeed = 5f;
+        walkSpeed = 2f;
 
         // Gravity
         groundCheck = false;
         gravity = -9.81f;
+
+        // Animations
+        playerMovementAnim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -75,7 +82,18 @@ public class PlayerMovement : MonoBehaviour
         xAxis = Input.GetAxis("Horizontal") * Time.deltaTime;
         zAxis = Input.GetAxis("Vertical") * Time.deltaTime;
 
-        isWalking = Input.GetKey(KeyCode.Z);
+        if (xAxis != 0 || zAxis != 0)
+        {
+            playerMovementAnim.SetBool("isRunning", true);
+            playerMovementAnim.SetFloat("xAxis", xAxis);
+            playerMovementAnim.SetFloat("yAxis", zAxis);
+        }
+        else
+        {
+            playerMovementAnim.SetBool("isRunning", false);
+        }
+
+        isWalking = Input.GetKey(KeyCode.Z);     
 
         Bend();
         WalkOrRun(isWalking);
