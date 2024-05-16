@@ -5,7 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 public enum State { Standing, Walking, Jumping, Bending}
-public class NewBehaviourScript : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
     // Camera rotation
     [SerializeField] GameObject playerCamera;

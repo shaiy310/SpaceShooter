@@ -8,7 +8,7 @@ public class AmmoMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        speed = 1.5f;
+        speed = 50f;
     }
 
     // Update is called once per frame
