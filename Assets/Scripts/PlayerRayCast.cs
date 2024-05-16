@@ -32,7 +32,7 @@ public class PlayerRayCast : MonoBehaviour
 
         if (Input.GetMouseButton(0))
         {
-            origin = cameraPos.GetComponent<Camera>().ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0));
+            //origin = cameraPos.GetComponent<Camera>().ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0));
             var rotation = transform.localRotation.eulerAngles + 90 * Vector3.right;
             Instantiate(weapon.Ammo.Bullet,
                 transform.TransformPoint(shootingPositions[state]),

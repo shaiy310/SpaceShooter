@@ -5,7 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 public enum State { Standing, Walking, Jumping, Bending}
-public class NewBehaviourScript : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
     // Camera rotation
     [SerializeField] GameObject playerCamera;
@@ -40,8 +40,8 @@ public class NewBehaviourScript : MonoBehaviour
 
         // Movement
         cc = GetComponent<CharacterController>();
-        runSpeed = 15f;
-        walkSpeed = 5f;
+        runSpeed = 7f;
+        walkSpeed = 3f;
 
         // Gravity
         groundCheck = false;
