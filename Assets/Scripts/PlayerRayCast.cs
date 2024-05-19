@@ -8,7 +8,7 @@ public class PlayerRayCast : MonoBehaviour
     Vector3 origin;
     RaycastHit hit;
     int maxDistance;
-    [SerializeField] GameObject cameraPos;
+    [SerializeField] Camera cameraPos;
     [SerializeField] LayerMask rayCastHitable;
     Dictionary<State, Vector3> shootingPositions;
 
@@ -18,7 +18,7 @@ public class PlayerRayCast : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        maxDistance = 500;
+        maxDistance = 30;
         shootingPositions = new Dictionary<State, Vector3>() {
             { State.Standing, new Vector3(.25f, 1.6f, 1.5f) }
         };
@@ -27,12 +27,33 @@ public class PlayerRayCast : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Shoot();
+        Interaction();
+    }
+
+    void Interaction()
+    {
+        if (!Input.GetKeyDown(KeyCode.E)) {
+            return;
+        }
+
+        origin = cameraPos.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0));
+        Vector3 direction = cameraPos.transform.forward;
+        if (!Physics.Raycast(origin, direction, out hit, maxDistance, rayCastHitable)) {
+            return;
+        }
+
+        ConsoleScreen console = hit.collider.GetComponent<ConsoleScreen>();
+        console?.Interact();
+    }
+
+    void Shoot()
+    {
         Debug.Log("TODO: get state from player movement script");
         State state = State.Standing;
 
-        if (Input.GetMouseButton(0))
-        {
-            origin = cameraPos.GetComponent<Camera>().ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0));
+        if (Input.GetMouseButton(0)) {
+            origin = cameraPos.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0));
             var rotation = transform.localRotation.eulerAngles + 90 * Vector3.right;
             Instantiate(weapon.Ammo.Bullet,
                 transform.TransformPoint(shootingPositions[state]),
