@@ -5,7 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 public enum State { Standing, Walking, Jumping, Bending}
-public class NewBehaviourScript : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
     // Camera rotation
     [SerializeField] GameObject playerCamera;
@@ -30,6 +30,10 @@ public class NewBehaviourScript : MonoBehaviour
     float gravity;
     Vector3 gravitymove;
 
+    // Animations
+    Animator playerMovementAnim;
+    bool animateMove;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -40,12 +44,15 @@ public class NewBehaviourScript : MonoBehaviour
 
         // Movement
         cc = GetComponent<CharacterController>();
-        runSpeed = 15f;
-        walkSpeed = 5f;
+        runSpeed = 5f;
+        walkSpeed = 2f;
 
         // Gravity
         groundCheck = false;
         gravity = -9.81f;
+
+        // Animations
+        playerMovementAnim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -75,7 +82,18 @@ public class NewBehaviourScript : MonoBehaviour
         xAxis = Input.GetAxis("Horizontal") * Time.deltaTime;
         zAxis = Input.GetAxis("Vertical") * Time.deltaTime;
 
-        isWalking = Input.GetKey(KeyCode.Z);
+        if (xAxis != 0 || zAxis != 0)
+        {
+            playerMovementAnim.SetBool("isRunning", true);
+            playerMovementAnim.SetFloat("xAxis", xAxis);
+            playerMovementAnim.SetFloat("yAxis", zAxis);
+        }
+        else
+        {
+            playerMovementAnim.SetBool("isRunning", false);
+        }
+
+        isWalking = Input.GetKey(KeyCode.Z);     
 
         Bend();
         WalkOrRun(isWalking);

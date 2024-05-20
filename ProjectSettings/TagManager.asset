@@ -13,7 +13,8 @@ TagManager:
   - UI
   - Ground
   - Weapon
-  - Enemies
+  - 
+  - WeaponUI
   - Interactables
   - 
   - 
@@ -40,4 +41,13 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: BG
+    uniqueID: 1788388413
+    locked: 0
+  - name: Buttons
+    uniqueID: 2177735393
+    locked: 0
+  - name: Shop
+    uniqueID: 2152948525
     locked: 0

@@ -11,6 +11,7 @@ public class PlayerRayCast : MonoBehaviour
     [SerializeField] Camera cameraPos;
     [SerializeField] LayerMask rayCastHitable;
     Dictionary<State, Vector3> shootingPositions;
+    [SerializeField] Animator playShotAnim;
 
     // Weapons
     [SerializeField] WeaponBase weapon;
@@ -52,13 +53,23 @@ public class PlayerRayCast : MonoBehaviour
         Debug.Log("TODO: get state from player movement script");
         State state = State.Standing;
 
-        if (Input.GetMouseButton(0)) {
-            origin = cameraPos.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0));
+        if (Input.GetMouseButton(0))
+        {
+            playShotAnim.SetBool("isBurstShot", true);
+
             var rotation = transform.localRotation.eulerAngles + 90 * Vector3.right;
             Instantiate(weapon.Ammo.Bullet,
                 transform.TransformPoint(shootingPositions[state]),
                 Quaternion.Euler(rotation)
             );
         }
+        else
+        {
+            playShotAnim.SetBool("isBurstShot", false);
+        }
+
+        // Reolad function
+        playShotAnim.SetBool("isReload", Input.GetKey(KeyCode.E));
+
     }
 }
