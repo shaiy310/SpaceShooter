@@ -44,7 +44,7 @@ public class PlayerRayCast : MonoBehaviour
             return;
         }
 
-        ConsoleScreen console = hit.collider.GetComponent<ConsoleScreen>();
+        var console = hit.collider.GetComponent<IInteractable>();
         console?.Interact();
     }
 
