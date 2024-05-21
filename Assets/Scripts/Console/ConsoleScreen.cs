@@ -19,14 +19,17 @@ public class ConsoleScreen : MonoBehaviour, IInteractable
 
     public void IncreaseShield()
     {
-
+        screen.PostMessage("shield up");
     }
 
     public void UpdateAmmo(PlayerRayCast shooter)
     {
-
+        screen.PostMessage("new ammo");
+        shooter.SwitchWeapon();
     }
 
     public void OpenDoor()
-    { }
+    {
+        screen.PostMessage("open door");
+    }
 }

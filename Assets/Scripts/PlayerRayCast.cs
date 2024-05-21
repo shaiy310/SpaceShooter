@@ -72,4 +72,9 @@ public class PlayerRayCast : MonoBehaviour
         playShotAnim.SetBool("isReload", Input.GetKey(KeyCode.E));
 
     }
+
+    public void SwitchWeapon()
+    {
+        Debug.Log("switch weapon");
+    }
 }
