@@ -14,10 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponName: UMP-45
   gunPrefab: {fileID: 100000, guid: 5112e6444b23577429168ceb76476ae4, type: 3}
-  ammo: {fileID: 11400000, guid: cae06cae9d0155644abbeae7cbd0593d, type: 2}
-  weapon:
+  ammo: {fileID: 11400000, guid: 5537fb32976aca64f8d9cfd882e85b4b, type: 2}
+  weaponStats:
     damage: 0
-    clipSize: 0
-    accuracy: 0
-    range: 0
-    isAuto: 0

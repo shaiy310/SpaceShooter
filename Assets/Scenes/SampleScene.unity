@@ -21328,7 +21328,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3739542153614425309, guid: 43152f8a0970807429f46b9c91504096, type: 3}
       propertyPath: action.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: ConsoleScreen, Assembly-CSharp
+      value: Console, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 3739542153614425309, guid: 43152f8a0970807429f46b9c91504096, type: 3}
       propertyPath: action2.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -21337,10 +21337,10 @@ PrefabInstance:
     - target: {fileID: 3739542153614425309, guid: 43152f8a0970807429f46b9c91504096, type: 3}
       propertyPath: action.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
       value: 
-      objectReference: {fileID: 1746212005}
+      objectReference: {fileID: 11400000, guid: 5b2e862af7b0ec44eb8879199b65ecd7, type: 2}
     - target: {fileID: 3739542153614425309, guid: 43152f8a0970807429f46b9c91504096, type: 3}
       propertyPath: action.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: PlayerRayCast, Assembly-CSharp
+      value: WeaponBase, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 3739542153614425309, guid: 43152f8a0970807429f46b9c91504096, type: 3}
       propertyPath: action2.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -26298,6 +26298,10 @@ PrefabInstance:
     - target: {fileID: 125588, guid: ea798cfb4939d4441b95d1bd39d0767f, type: 3}
       propertyPath: m_Layer
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 125588, guid: ea798cfb4939d4441b95d1bd39d0767f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 174170, guid: ea798cfb4939d4441b95d1bd39d0767f, type: 3}
       propertyPath: m_Layer
