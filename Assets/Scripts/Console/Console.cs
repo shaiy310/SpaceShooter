@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class ConsoleScreen : MonoBehaviour, IInteractable
+public class Console : MonoBehaviour, IInteractable
 {
     [SerializeField] ScreenMessage screen;
     [SerializeField] UnityEvent action;
@@ -28,8 +28,9 @@ public class ConsoleScreen : MonoBehaviour, IInteractable
         shooter.SwitchWeapon();
     }
 
-    public void OpenDoor()
+    public void UnlockDoor(RegularDoorEngine door)
     {
-        screen.PostMessage("open door");
+        screen.PostMessage("Engineering door unlocked");
+        door.enabled = true;
     }
 }
