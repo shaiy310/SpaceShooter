@@ -8581,7 +8581,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c816c43996572d4fbec978d3202a9be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadedScreen: {fileID: 818997119}
+  fadedScreen: {fileID: 818997121}
 --- !u!4 &493295706
 Transform:
   m_ObjectHideFlags: 0
