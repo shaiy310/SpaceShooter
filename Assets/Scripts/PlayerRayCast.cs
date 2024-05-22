@@ -1,17 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class PlayerRayCast : MonoBehaviour
 {
     // Shots
-    Vector3 origin;
-    RaycastHit hit;
-    int maxDistance;
     [SerializeField] Camera cameraPos;
     [SerializeField] LayerMask rayCastHitable;
-    Dictionary<State, Vector3> shootingPositions;
     [SerializeField] Animator playShotAnim;
+    Dictionary<State, Vector3> shootingPositions;
+
+    // Interactions
+    [SerializeField] TextMeshProUGUI instructions;
+    int maxDistance;
 
     // Weapons
     [SerializeField] WeaponBase weapon;
@@ -19,7 +21,7 @@ public class PlayerRayCast : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        maxDistance = 30;
+        maxDistance = 3;
         shootingPositions = new Dictionary<State, Vector3>() {
             { State.Standing, new Vector3(.25f, 1.6f, 1.5f) }
         };
@@ -34,18 +36,20 @@ public class PlayerRayCast : MonoBehaviour
 
     void Interaction()
     {
-        if (!Input.GetKeyDown(KeyCode.E)) {
-            return;
-        }
-
-        origin = cameraPos.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0));
+        Vector3 origin = cameraPos.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0));
         Vector3 direction = cameraPos.transform.forward;
-        if (!Physics.Raycast(origin, direction, out hit, maxDistance, rayCastHitable)) {
+        if (!Physics.Raycast(origin, direction, out RaycastHit hit, maxDistance, rayCastHitable)) {
+            instructions.enabled = false;
             return;
         }
 
-        var console = hit.collider.GetComponent<IInteractable>();
-        console?.Interact();
+        if (hit.collider.TryGetComponent<IInteractable>(out var console)) {
+            instructions.enabled = true;
+
+            if (Input.GetKeyDown(KeyCode.C)) {
+                console.Interact();
+            }
+        }
     }
 
     void Shoot()
