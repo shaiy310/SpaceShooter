@@ -24,18 +24,11 @@ public class RegularDoorEngine : MonoBehaviour
         OpenRegularDoor();
     }
 
-    public void OpenRegularDoor ()
+    public void OpenRegularDoor()
     {
         float distanceToDoor = Vector3.Distance(player.position, door.position);
 
-        if (distanceToDoor <= distance)
-        {
-            doorAnimation.SetBool("character_nearby", true);
-        }
-        else
-        {
-            doorAnimation.SetBool("character_nearby", false);
-        }
+        doorAnimation.SetBool("character_nearby", distanceToDoor <= distance);
     }
 
 }
