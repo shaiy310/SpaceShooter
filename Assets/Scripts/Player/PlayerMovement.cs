@@ -14,6 +14,8 @@ public class PlayerMovement : MonoBehaviour
     float cameraRange;
 
     // Movement
+    Vector3 startingPosition;
+    Quaternion startingRotation;
     CharacterController cc;
     float runSpeed;
     float walkSpeed;
@@ -37,6 +39,8 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         Cursor.visible = false;
+        startingPosition = transform.position;
+        startingRotation = transform.rotation;
 
         // Rotation
         lookSpeed = 600f;
@@ -61,6 +65,7 @@ public class PlayerMovement : MonoBehaviour
         Movement();
         IsTouchTheGround();
         Jump();
+        RespawnIfOffMap();
     }
 
     void CameraRotation()
@@ -150,6 +155,13 @@ public class PlayerMovement : MonoBehaviour
         {
             xAxis *= runSpeed;
             zAxis *= runSpeed;
+        }
+    }
+
+    private void RespawnIfOffMap()
+    {
+        if (transform.position.y < 105) {
+            transform.SetPositionAndRotation(startingPosition, startingRotation);
         }
     }
 }
