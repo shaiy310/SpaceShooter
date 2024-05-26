@@ -13,7 +13,7 @@ public class Timer : MonoBehaviour
     void Start()
     {
         minute = 60f;
-        firstPhaseMinutes = 0.5f;
+        firstPhaseMinutes = 15f;
         remainingTime = firstPhaseMinutes * minute;
 
         StartCoroutine(RunTimer());
