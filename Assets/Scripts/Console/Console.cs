@@ -9,9 +9,6 @@ public class Console : MonoBehaviour, IInteractable
     [SerializeField] ScreenMessage screen;
     [SerializeField] UnityEvent action;
 
-    //[SerializeField] 
-
-
     public void Interact()
     {
         action?.Invoke();
@@ -22,10 +19,10 @@ public class Console : MonoBehaviour, IInteractable
         screen.PostMessage("shield up");
     }
 
-    public void UpdateAmmo(PlayerRayCast shooter)
+    public void UpdateAmmo(WeaponBase weaponBase)
     {
         screen.PostMessage("new ammo");
-        shooter.SwitchWeapon();
+        PlayerRayCast.instance.SwitchWeapon(weaponBase);
     }
 
     public void UnlockDoor(RegularDoorEngine door)
