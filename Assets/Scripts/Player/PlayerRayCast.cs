@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class PlayerRayCast : MonoBehaviour
 {
+    public static PlayerRayCast instance;
+
     // Shots
     [SerializeField] Camera cameraPos;
     [SerializeField] LayerMask rayCastHitable;
@@ -21,6 +23,7 @@ public class PlayerRayCast : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        instance = this;
         maxDistance = 3;
         shootingPositions = new Dictionary<State, Vector3>() {
             { State.Standing, new Vector3(.25f, 1.6f, 1.5f) }
@@ -43,11 +46,11 @@ public class PlayerRayCast : MonoBehaviour
             return;
         }
 
-        if (hit.collider.TryGetComponent<IInteractable>(out var console)) {
+        if (hit.collider.TryGetComponent<IInteractable>(out var interactable)) {
             instructions.enabled = true;
 
             if (Input.GetKeyDown(KeyCode.C)) {
-                console.Interact();
+                interactable.Interact();
             }
         }
     }
@@ -77,8 +80,8 @@ public class PlayerRayCast : MonoBehaviour
 
     }
 
-    public void SwitchWeapon()
+    public void SwitchWeapon(WeaponBase newWeapon)
     {
-        Debug.Log("switch weapon");
+        weapon = newWeapon;
     }
 }
