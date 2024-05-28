@@ -12,9 +12,4 @@ public class Console : MonoBehaviour, IInteractable
     {
         action?.Invoke();
     }
-
-    public void UpdateAmmo(PlayerRayCast shooter)
-    {
-        shooter.SwitchWeapon();
-    }
 }
