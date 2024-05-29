@@ -23,6 +23,13 @@ public class HealthManager : MonoBehaviour
     public void TakeDamage(float damage)
     {
         HealthAmount = Mathf.Clamp(HealthAmount - damage, 0, 100);
+        if (HealthAmount == 0) {
+            StartCoroutine(PlayerMovement.instance.Respawn());
+            HealthAmount = 100;
+        } else {
+            StartCoroutine(Fadder.instance.FadeAnimation(Color.red, 0.2f, 0.75f));
+        }
+
         FillAmount();
     }
 

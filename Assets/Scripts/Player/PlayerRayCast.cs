@@ -64,7 +64,7 @@ public class PlayerRayCast : MonoBehaviour
         {
             playShotAnim.SetBool("isBurstShot", true);
 
-            var rotation = transform.localRotation.eulerAngles + 90 * Vector3.right;
+            //var rotation = transform.localRotation.eulerAngles + 90 * Vector3.right;
             Instantiate(weapon.Ammo.Bullet,
                 transform.TransformPoint(shootingPositions[state]),
                 //Quaternion.identity

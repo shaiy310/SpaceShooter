@@ -10,7 +10,7 @@ public class RobotSphereEngine : MonoBehaviour
 
     Animator animator;
     float speed;
-    float shootingSpeed;
+    float shootingCoolDown;
     float lastShotTime;
 
     // Start is called before the first frame update
@@ -18,7 +18,7 @@ public class RobotSphereEngine : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         speed = 2f;
-        shootingSpeed = 1f;
+        shootingCoolDown = .5f;
 
         if (Routes.Count > 0) {
             StartCoroutine(Patrol());
@@ -32,7 +32,7 @@ public class RobotSphereEngine : MonoBehaviour
 
     void Shoot()
     {
-        if (lastShotTime + shootingSpeed > Time.time) {
+        if (lastShotTime + shootingCoolDown > Time.time) {
             // shooting cooldown
             return;
         }

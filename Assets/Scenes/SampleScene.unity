@@ -13774,6 +13774,7 @@ GameObject:
   - component: {fileID: 818997120}
   - component: {fileID: 818997122}
   - component: {fileID: 818997121}
+  - component: {fileID: 818997123}
   m_Layer: 5
   m_Name: FadedScreen
   m_TagString: Untagged
@@ -13838,6 +13839,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 818997119}
   m_CullTransparentMesh: 1
+--- !u!114 &818997123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 818997119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a074e41f357bd3d4096b14e702700937, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &819576433
 PrefabInstance:
   m_ObjectHideFlags: 0
