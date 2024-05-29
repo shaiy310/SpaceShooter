@@ -146,7 +146,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1528915638184230, guid: 8e0f285c21cdcf14e8d5c06c57ba936b, type: 3}
       propertyPath: m_Name
-      value: robotSphere Variant
+      value: robotSphereVariant
       objectReference: {fileID: 0}
     - target: {fileID: 1528915638184230, guid: 8e0f285c21cdcf14e8d5c06c57ba936b, type: 3}
       propertyPath: m_Layer
@@ -347,3 +347,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Routes: []
+  laser: {fileID: 11400000, guid: 5537fb32976aca64f8d9cfd882e85b4b, type: 2}
+  hitable:
+    serializedVersion: 2
+    m_Bits: 384

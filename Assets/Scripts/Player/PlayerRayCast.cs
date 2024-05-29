@@ -57,7 +57,7 @@ public class PlayerRayCast : MonoBehaviour
 
     void Shoot()
     {
-        Debug.Log("TODO: get state from player movement script");
+        //Debug.Log("TODO: get state from player movement script");
         State state = State.Standing;
 
         if (Input.GetMouseButton(0))

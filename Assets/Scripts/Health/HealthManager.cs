@@ -6,41 +6,35 @@ using UnityEngine.UI;
 
 public class HealthManager : MonoBehaviour
 {
+    public static HealthManager instance;
+
     [SerializeField] TextMeshProUGUI healthText;
     [SerializeField] Image healthBar;
-    public static float healthAmount;
+    
+    public float HealthAmount {  get; private set; }
 
     void Start()
     {
-        healthAmount = 100f;
-        healthText.text = healthAmount.ToString() + "%";
-    }
-
-    private void Update()
-    {
+        instance = this;
+        HealthAmount = 100f;
         FillAmount();
-
-        if (healthAmount <= 0)
-            healthAmount = 0;
-
-        healthText.text = healthAmount.ToString() + "%";
     }
 
-    public void takeDamage(float damage)
+    public void TakeDamage(float damage)
     {
-        healthAmount -= damage;
+        HealthAmount = Mathf.Clamp(HealthAmount - damage, 0, 100);
         FillAmount();
     }
 
     public void Heal(float healingAmount)
     {
-        healthAmount += healingAmount;
-        healthAmount = Mathf.Clamp(healthAmount, 0, 100);
+        HealthAmount = Mathf.Clamp(HealthAmount + healingAmount, 0, 100);
         FillAmount();
     }
 
     void FillAmount()
     {
-        healthBar.fillAmount = healthAmount / 100;
+        healthBar.fillAmount = HealthAmount / 100;
+        healthText.text = $"{HealthAmount}%";
     }
 }
