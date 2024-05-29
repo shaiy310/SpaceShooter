@@ -7,11 +7,14 @@ using static UnityEngine.UI.Image;
 
 public class AmmoMovement : MonoBehaviour
 {
+    [SerializeField] LayerMask hitable;
     float speed;
     // Start is called before the first frame update
     void Start()
     {
         speed = 50f;
+        Invoke(nameof(SelfDestruct), 10);
+        
     }
 
     // Update is called once per frame
@@ -23,11 +26,10 @@ public class AmmoMovement : MonoBehaviour
 
     private void CheckCollision()
     {
-        if (!Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, 0.1f)) {
+        if (!Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, 0.1f, hitable)) {
             return;
         }
 
-        Debug.Log($"laser collided with {hit.collider.tag} ({hit.collider.name})", hit.collider);
         if (hit.collider.CompareTag("Laser")) {
             // Ignore colliding lasers
             return;
@@ -37,11 +39,11 @@ public class AmmoMovement : MonoBehaviour
             Destroy(hit.collider.gameObject);
         }
 
-        Destroy(gameObject);
+        SelfDestruct();
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        Destroy(gameObject);
+    void SelfDestruct() { 
+        Destroy(gameObject); 
     }
+
 }
