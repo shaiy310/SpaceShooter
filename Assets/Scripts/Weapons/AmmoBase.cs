@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Weapons/Create new ammo")]
 public class AmmoBase : ScriptableObject
 {
-    [SerializeField] GameObject bulletPrefab;
+    [SerializeField] AmmoMovement bulletPrefab;
 
-    public GameObject Bullet => bulletPrefab;
+    public AmmoMovement Bullet => bulletPrefab;
 }

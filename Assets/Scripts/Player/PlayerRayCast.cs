@@ -18,7 +18,7 @@ public class PlayerRayCast : MonoBehaviour
     int maxDistance;
 
     // Weapons
-    [SerializeField] WeaponBase weapon;
+    [SerializeField] AmmoBase ammo;
 
     // Start is called before the first frame update
     void Start()
@@ -65,7 +65,7 @@ public class PlayerRayCast : MonoBehaviour
             playShotAnim.SetBool("isBurstShot", true);
 
             //var rotation = transform.localRotation.eulerAngles + 90 * Vector3.right;
-            Instantiate(weapon.Ammo.Bullet,
+            Instantiate(ammo.Bullet.gameObject,
                 transform.TransformPoint(shootingPositions[state]),
                 //Quaternion.identity
                 //Quaternion.LookRotation(cameraPos.transform.forward, cameraPos.transform.up) * Quaternion.Euler(90, 0, 0)
@@ -83,8 +83,8 @@ public class PlayerRayCast : MonoBehaviour
 
     }
 
-    public void SwitchWeapon(WeaponBase newWeapon)
+    public void SwitchAmmo(AmmoBase newAmmo)
     {
-        weapon = newWeapon;
+        ammo = newAmmo;
     }
 }

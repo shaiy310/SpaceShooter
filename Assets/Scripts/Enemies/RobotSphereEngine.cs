@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RobotSphereEngine : MonoBehaviour
+public class RobotSphereEngine : MonoBehaviour, IEnemy
 {
-    [SerializeField] List<Vector3> Routes;
+    [SerializeField] int health = 25;
     [SerializeField] AmmoBase laser;
     [SerializeField] LayerMask hitable;
+    [SerializeField] List<Vector3> Routes;
 
     Animator animator;
     float speed;
@@ -43,8 +44,7 @@ public class RobotSphereEngine : MonoBehaviour
 
         // Shoot at player
         var origin = transform.position + new Vector3(0, 0.55f, 0.06f);
-        Debug.Log($"{hit.collider.transform.position} || {(hit.collider.transform.position - origin).normalized}");
-        Instantiate(laser.Bullet,
+        Instantiate(laser.Bullet.gameObject,
             origin,
             Quaternion.LookRotation((hit.collider.transform.position + Vector3.up - origin))
         );
@@ -74,6 +74,18 @@ public class RobotSphereEngine : MonoBehaviour
         while (Vector3.Distance(transform.position, target) > 0.25f) {
             transform.position += Time.deltaTime * speedVector;
             yield return null;
+        }
+    }
+
+    public void TakeDamage(int amount)
+    {
+        health -= amount;
+        print(health);
+        if (health <= 0) {
+            Debug.Log("dead", this);
+            var mr = GetComponentInChildren<MeshRenderer>();
+            mr.material.color = Color.red;
+            //Destroy(gameObject);
         }
     }
 }

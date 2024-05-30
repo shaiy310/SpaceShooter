@@ -7298,6 +7298,10 @@ PrefabInstance:
       value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 19816230, guid: 5f8552cfeac0c29428f4d3d1362bacae, type: 3}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 19816230, guid: 5f8552cfeac0c29428f4d3d1362bacae, type: 3}
       propertyPath: InitialModule.startColor.maxColor.b
       value: 0.07209349
       objectReference: {fileID: 0}
@@ -21742,7 +21746,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3739542153614425309, guid: 43152f8a0970807429f46b9c91504096, type: 3}
       propertyPath: action.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SwitchWeapon
+      value: SwitchAmmo
       objectReference: {fileID: 0}
     - target: {fileID: 3739542153614425309, guid: 43152f8a0970807429f46b9c91504096, type: 3}
       propertyPath: action2.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
@@ -21763,10 +21767,10 @@ PrefabInstance:
     - target: {fileID: 3739542153614425309, guid: 43152f8a0970807429f46b9c91504096, type: 3}
       propertyPath: action.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
       value: 
-      objectReference: {fileID: 11400000, guid: 5b2e862af7b0ec44eb8879199b65ecd7, type: 2}
+      objectReference: {fileID: 11400000, guid: 5537fb32976aca64f8d9cfd882e85b4b, type: 2}
     - target: {fileID: 3739542153614425309, guid: 43152f8a0970807429f46b9c91504096, type: 3}
       propertyPath: action.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: WeaponBase, Assembly-CSharp
+      value: AmmoBase, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 3739542153614425309, guid: 43152f8a0970807429f46b9c91504096, type: 3}
       propertyPath: action2.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -29996,7 +30000,7 @@ MonoBehaviour:
     m_Bits: 1024
   playShotAnim: {fileID: 1746212008}
   instructions: {fileID: 451104913}
-  weapon: {fileID: 11400000, guid: 3a8c2b77dc6d7664ba27c72f3e54b3c4, type: 2}
+  ammo: {fileID: 11400000, guid: cae06cae9d0155644abbeae7cbd0593d, type: 2}
 --- !u!114 &1746212006
 MonoBehaviour:
   m_ObjectHideFlags: 0
