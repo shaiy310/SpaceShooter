@@ -57,17 +57,20 @@ public class PlayerRayCast : MonoBehaviour
 
     void Shoot()
     {
-        Debug.Log("TODO: get state from player movement script");
+        //Debug.Log("TODO: get state from player movement script");
         State state = State.Standing;
 
         if (Input.GetMouseButton(0))
         {
             playShotAnim.SetBool("isBurstShot", true);
 
-            var rotation = transform.localRotation.eulerAngles + 90 * Vector3.right;
+            //var rotation = transform.localRotation.eulerAngles + 90 * Vector3.right;
             Instantiate(weapon.Ammo.Bullet,
                 transform.TransformPoint(shootingPositions[state]),
-                Quaternion.Euler(rotation)
+                //Quaternion.identity
+                //Quaternion.LookRotation(cameraPos.transform.forward, cameraPos.transform.up) * Quaternion.Euler(90, 0, 0)
+                Quaternion.LookRotation(cameraPos.transform.forward)
+                //Quaternion.Euler(rotation)
             );
         }
         else

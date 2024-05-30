@@ -21,7 +21,7 @@ public class StoryLine : MonoBehaviour
         yield return new WaitUntil(() => Timer.remainingTime > 0);
 
         decreaseDmgMinute = Timer.remainingTime / 10;
-        damageDecreasePerSec = Mathf.Round((HealthManager.healthAmount / decreaseDmgMinute) * 10) / 10f + 0.1f;
+        damageDecreasePerSec = Mathf.Round((HealthManager.instance.HealthAmount / decreaseDmgMinute) * 10) / 10f + 0.1f;
     }
 
     private IEnumerator DealDamage()
@@ -41,7 +41,7 @@ public class StoryLine : MonoBehaviour
     {
         while (Timer.remainingTime > 0)
         {
-            HealthManager.healthAmount -= damageDecreasePerSec;
+            HealthManager.instance.TakeDamage(damageDecreasePerSec);
             yield return new WaitForSeconds(1f);
         }
     }
