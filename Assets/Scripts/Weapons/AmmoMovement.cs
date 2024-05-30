@@ -40,11 +40,11 @@ public class AmmoMovement : MonoBehaviour
 
         if (hit.collider.CompareTag("Enemy")) {
             var enemy = hit.collider.GetComponent<IEnemy>();
-            enemy.TakeDamage(5);
+            enemy.TakeDamage(power);
         }
 
         if (hit.collider.CompareTag("Player")) {
-            HealthManager.instance.TakeDamage(5);
+            HealthManager.instance.TakeDamage(power);
         }
 
         SelfDestruct();
