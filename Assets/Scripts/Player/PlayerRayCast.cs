@@ -24,6 +24,11 @@ public class PlayerRayCast : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (PopUpScreen.Instance.gameObject.activeSelf)
+        {
+            return;
+        }
+
         //Debug.Log("TODO: get state from player movement script");
         State state = State.Standing;
 

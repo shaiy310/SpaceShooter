@@ -12,6 +12,8 @@ public class StoryLine : MonoBehaviour
 
     private void Start()
     {
+        PopUpScreen.Instance.ShowPopUpScreen("Active the space station air machine within the limited time");
+
         StartCoroutine(InitializeAfterTimer());
         StartCoroutine(DealDamage());
     }

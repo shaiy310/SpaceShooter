@@ -57,6 +57,11 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (PopUpScreen.Instance.gameObject.activeSelf)
+        {
+            return;
+        }
+
         CameraRotation();
         Movement();
         IsTouchTheGround();
