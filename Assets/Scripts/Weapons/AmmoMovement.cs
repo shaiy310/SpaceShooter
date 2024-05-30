@@ -8,13 +8,12 @@ using static UnityEngine.UI.Image;
 public class AmmoMovement : MonoBehaviour
 {
     [SerializeField] LayerMask hitable;
-    float speed;
+    [SerializeField] float speed = 35;
 
     // Start is called before the first frame update
     void Start()
     {
-        speed = 50f;
-        Invoke(nameof(SelfDestruct), 10);
+        Invoke(nameof(SelfDestruct), 3);
         
     }
 
@@ -27,7 +26,7 @@ public class AmmoMovement : MonoBehaviour
 
     private void CheckCollision()
     {
-        if (!Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, 0.1f, hitable)) {
+        if (!Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, 1f, hitable)) {
             return;
         }
 
@@ -41,13 +40,13 @@ public class AmmoMovement : MonoBehaviour
         }
 
         if (hit.collider.CompareTag("Player")) {
-            HealthManager.instance.TakeDamage(25);
+            HealthManager.instance.TakeDamage(5);
         }
 
         SelfDestruct();
     }
 
-    void SelfDestruct() { 
+    void SelfDestruct() {
         Destroy(gameObject); 
     }
 

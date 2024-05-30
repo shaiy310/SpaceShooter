@@ -5,17 +5,24 @@ using UnityEngine;
 
 public class Timer : MonoBehaviour
 {
+    public static Timer Instance { get; private set; }
+
     [SerializeField] TextMeshProUGUI timerText;
+
     public static float remainingTime;
     private float minute;
     private float firstPhaseMinutes;
-   
-    void Start()
+
+    private void Awake()
     {
+        Instance = this;
         minute = 60f;
         firstPhaseMinutes = 15f;
         remainingTime = firstPhaseMinutes * minute;
+    }
 
+    void Start()
+    {
         StartCoroutine(RunTimer());
     }
 
@@ -39,5 +46,11 @@ public class Timer : MonoBehaviour
 
             yield return new WaitForSeconds(1f);
         }
+    }
+
+    public void StopTimer()
+    {
+        StopCoroutine(RunTimer());
+        timerText.enabled = false;
     }
 }

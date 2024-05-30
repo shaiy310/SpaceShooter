@@ -42,9 +42,11 @@ public class RobotSphereEngine : MonoBehaviour
         }
 
         // Shoot at player
+        var origin = transform.position + new Vector3(0, 0.55f, 0.06f);
+        Debug.Log($"{hit.collider.transform.position} || {(hit.collider.transform.position - origin).normalized}");
         Instantiate(laser.Bullet,
-            transform.TransformPoint(new Vector3(0, 0.05f, 0.06f)),
-            Quaternion.LookRotation((hit.collider.transform.position - transform.position).normalized)
+            origin,
+            Quaternion.LookRotation((hit.collider.transform.position + Vector3.up - origin))
         );
         lastShotTime = Time.time;
     }

@@ -4,12 +4,13 @@ using UnityEngine.UI;
 
 public class Fadder : MonoBehaviour
 {
-    public static Fadder instance;
+    public static Fadder Instance { get; private set; }
+
     Image image;
 
     void Start()
     {
-        instance = this;
+        Instance = this;
         image = GetComponent<Image>();
     }
 

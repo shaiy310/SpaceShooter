@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class StoryLine : MonoBehaviour
 {
+    public static StoryLine Instance { get; private set; }
+
     [SerializeField] Image fadedScreen;
 
     private float decreaseDmgMinute;
@@ -12,16 +14,17 @@ public class StoryLine : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(InitializeAfterTimer());
-        StartCoroutine(DealDamage());
-    }
-
-    private IEnumerator InitializeAfterTimer()
-    {
-        yield return new WaitUntil(() => Timer.remainingTime > 0);
+        Instance = this;
 
         decreaseDmgMinute = Timer.remainingTime / 10;
         damageDecreasePerSec = Mathf.Round((HealthManager.instance.HealthAmount / decreaseDmgMinute) * 10) / 10f + 0.1f;
+
+        StartCoroutine(DealDamage());
+    }
+
+    public void CompleteStoryLine()
+    {
+        StopCoroutine(DealDamage());
     }
 
     private IEnumerator DealDamage()

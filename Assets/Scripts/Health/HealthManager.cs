@@ -24,10 +24,10 @@ public class HealthManager : MonoBehaviour
     {
         HealthAmount = Mathf.Clamp(HealthAmount - damage, 0, 100);
         if (HealthAmount == 0) {
-            StartCoroutine(PlayerMovement.instance.Respawn());
+            StartCoroutine(PlayerMovement.Instance.Respawn());
             HealthAmount = 100;
         } else {
-            StartCoroutine(Fadder.instance.FadeAnimation(Color.red, 0.2f, 0.75f));
+            StartCoroutine(Fadder.Instance.FadeAnimation(Color.red, 0.2f, 0.75f));
         }
 
         FillAmount();

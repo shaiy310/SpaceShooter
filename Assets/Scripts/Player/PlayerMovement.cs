@@ -6,7 +6,7 @@ using UnityEngine;
 public enum State { Standing, Walking, Jumping, Bending}
 public class PlayerMovement : MonoBehaviour
 {
-    public static PlayerMovement instance;
+    public static PlayerMovement Instance { get; private set; }
 
     // Camera rotation
     [SerializeField] GameObject playerCamera;
@@ -46,7 +46,7 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        instance = this;
+        Instance = this;
 
         Cursor.visible = false;
         startingPosition = transform.position;
@@ -188,11 +188,11 @@ public class PlayerMovement : MonoBehaviour
     public IEnumerator Respawn()
     {
         isRespawning = true;
-        yield return Fadder.instance.FadeOut(Color.black, 0.25f);
+        yield return Fadder.Instance.FadeOut(Color.black, 0.25f);
 
         transform.SetPositionAndRotation(startingPosition, startingRotation);
 
-        yield return Fadder.instance.FadeIn(Color.black, 0.25f);
+        yield return Fadder.Instance.FadeIn(Color.black, 0.25f);
         isRespawning = false;
     }
 }
