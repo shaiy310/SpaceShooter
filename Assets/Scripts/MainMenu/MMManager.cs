@@ -38,42 +38,7 @@ public class MMManager : MonoBehaviour
 
     public void OpenShop()
     {
-        Color color;
-        SpriteRenderer spriteRenderer;      
-        Image image;
-        TextMeshProUGUI text;
-        fadeAmount = 150f / 250f;
-
-        foreach (GameObject obj in objectsToFade){
-            spriteRenderer = obj.GetComponent<SpriteRenderer>();
-
-            if (spriteRenderer != null)
-            {
-                color = spriteRenderer.color;
-                color.a = fadeAmount;
-                spriteRenderer.color = color;
-                continue;
-            }
-
-            image = obj.GetComponent<Image>();
-            if (image != null)
-            {       
-                color = image.color;
-                color.a = fadeAmount;
-                image.color = color;
-                continue;
-            }
-
-            text = obj.GetComponent<TextMeshProUGUI>();
-            if (text != null)
-            {
-                color = text.color;
-                color.a = fadeAmount;
-                text.color = color;
-                continue;
-            }
-        }
-
-        shop.gameObject.SetActive(true);
+        shop.SetActive(true);
+        mainMenu.SetActive(false);
     }
 }

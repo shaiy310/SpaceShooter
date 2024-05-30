@@ -6,6 +6,8 @@ using UnityEngine;
 public enum State { Standing, Walking, Jumping, Bending}
 public class PlayerMovement : MonoBehaviour
 {
+    public static PlayerMovement Instance { get; private set; }
+
     // Camera rotation
     [SerializeField] GameObject playerCamera;
     float mouseX;
@@ -14,6 +16,9 @@ public class PlayerMovement : MonoBehaviour
     float cameraRange;
 
     // Movement
+    Vector3 startingPosition;
+    Quaternion startingRotation;
+
     CharacterController cc;
     float runSpeed;
     float walkSpeed;
@@ -21,6 +26,7 @@ public class PlayerMovement : MonoBehaviour
     float zAxis;
     Vector3 localDirection;
     bool isWalking;
+    bool isRespawning;
 
     // Gravity
     [SerializeField] LayerMask groundLayerMask;
@@ -31,12 +37,20 @@ public class PlayerMovement : MonoBehaviour
 
     // Animations
     Animator playerMovementAnim;
-    bool animateMove;
+    //bool animateMove;
+
+    // Inventory
+    Inventory skin;
+    [SerializeField] Renderer playerWeaponMaterial;
+    [SerializeField] Renderer[] playerBodyMaterial;
 
     // Start is called before the first frame update
     void Start()
     {
-        Cursor.visible = false;
+        Instance = this;
+
+        startingPosition = transform.position;
+        startingRotation = transform.rotation;
 
         // Rotation
         lookSpeed = 600f;
@@ -45,6 +59,7 @@ public class PlayerMovement : MonoBehaviour
         cc = GetComponent<CharacterController>();
         runSpeed = 5f;
         walkSpeed = 2f;
+        isRespawning = false;
 
         // Gravity
         groundCheck = false;
@@ -52,13 +67,24 @@ public class PlayerMovement : MonoBehaviour
 
         // Animations
         playerMovementAnim = GetComponent<Animator>();
+
+        // Inventory
+        playerWeaponMaterial.material = skin.WeaponMaterials[Inventory.WeaponIndex];
+
+        foreach (var part in playerBodyMaterial)
+        {
+            part.material = skin.BodyMaterials[Inventory.bodyIndex];
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (PopUpScreen.Instance.gameObject.activeSelf)
-        {
+        if (PopUpScreen.Instance.gameObject.activeSelf) {
+            return;
+        }
+
+        if (isRespawning) {
             return;
         }
 
@@ -66,6 +92,11 @@ public class PlayerMovement : MonoBehaviour
         Movement();
         IsTouchTheGround();
         Jump();
+
+        if (transform.position.y < 105) {
+            // In case the player falls off the map.
+            StartCoroutine(Respawn());
+        }
     }
 
     void CameraRotation()
@@ -156,5 +187,16 @@ public class PlayerMovement : MonoBehaviour
             xAxis *= runSpeed;
             zAxis *= runSpeed;
         }
+    }
+
+    public IEnumerator Respawn()
+    {
+        isRespawning = true;
+        yield return Fadder.Instance.FadeOut(Color.black, 0.25f);
+
+        transform.SetPositionAndRotation(startingPosition, startingRotation);
+
+        yield return Fadder.Instance.FadeIn(Color.black, 0.25f);
+        isRespawning = false;
     }
 }

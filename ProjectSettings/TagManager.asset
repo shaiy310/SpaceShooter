@@ -3,21 +3,22 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Laser
+  - Enemy
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Laser
   - Water
   - UI
   - Ground
   - Weapon
   - Body
   - WeaponUI
-  - 
-  - 
-  - 
+  - Interactables
+  - Enemies
   - 
   - 
   - 

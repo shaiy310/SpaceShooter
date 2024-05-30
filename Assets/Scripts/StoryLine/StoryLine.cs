@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class StoryLine : MonoBehaviour
 {
+    public static StoryLine Instance { get; private set; }
+
     [SerializeField] Image fadedScreen;
 
     private float decreaseDmgMinute;
@@ -12,18 +14,20 @@ public class StoryLine : MonoBehaviour
 
     private void Start()
     {
+		Instance = this;
+		
         PopUpScreen.Instance.ShowPopUpScreen("Active the space station air machine within the limited time");
 
-        StartCoroutine(InitializeAfterTimer());
-        StartCoroutine(DealDamage());
+        decreaseDmgMinute = Timer.remainingTime / 10;
+        damageDecreasePerSec = Mathf.Round((HealthManager.instance.HealthAmount / decreaseDmgMinute) * 10) / 10f + 0.1f;
+        
+		StartCoroutine(DealDamage());
     }
 
-    private IEnumerator InitializeAfterTimer()
+    public void CompleteStoryLine()
     {
-        yield return new WaitUntil(() => Timer.remainingTime > 0);
+        StopCoroutine(DealDamage());
 
-        decreaseDmgMinute = Timer.remainingTime / 10;
-        damageDecreasePerSec = Mathf.Round((HealthManager.healthAmount / decreaseDmgMinute) * 10) / 10f + 0.1f;
     }
 
     private IEnumerator DealDamage()
@@ -43,7 +47,7 @@ public class StoryLine : MonoBehaviour
     {
         while (Timer.remainingTime > 0)
         {
-            HealthManager.healthAmount -= damageDecreasePerSec;
+            HealthManager.instance.TakeDamage(damageDecreasePerSec);
             yield return new WaitForSeconds(1f);
         }
     }
