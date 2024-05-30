@@ -1,68 +1,48 @@
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
     //Variables
-    [SerializeField] WeaponBase[] weapons;
-    [SerializeField] RenderTexture renderTexture;
-    [SerializeField] Camera weaponCamera;
-    [SerializeField] TextMeshProUGUI weaponName;
+    [SerializeField] List<Material> weaponMaterials = new List<Material>();
+    [SerializeField] List<Material> bodyMaterials = new List<Material>();
+    [SerializeField] Renderer weaponPreview;
+    [SerializeField] Renderer[] bodyPreview;
+    [SerializeField] Renderer materialWeaponPreview;
+    [SerializeField] Renderer materialBodyPreview;
+
     [SerializeField] GameObject mainMenu;
     [SerializeField] GameObject inventory;
-    [SerializeField] GameObject upgrade;
-    private GameObject currentWeaponInstance;
-    private int selectedOption;
 
-    public int weaponsCount
+    public static int WeaponIndex;
+    public static int bodyIndex;
+
+    public List<Material> WeaponMaterials
     {
-        get { return weapons.Length; }
+        get { return weaponMaterials; }
+        set { weaponMaterials = value; }
     }
 
-    public WeaponBase GetCurrentWeapon()
+    public List<Material> BodyMaterials
     {
-        return weapons[selectedOption];
+        get { return bodyMaterials; }
+        set { bodyMaterials = value; }
     }
 
-    public void NextOption()
+    private void Start()
     {
-        selectedOption++;
+        WeaponIndex = 0;
+        bodyIndex = 0;
 
-        if (selectedOption >= weaponsCount)
+        weaponPreview.material = weaponMaterials[WeaponIndex];
+        materialWeaponPreview.material = weaponMaterials[WeaponIndex];
+
+        materialBodyPreview.material = BodyMaterials[bodyIndex];
+        foreach (var part in bodyPreview)
         {
-            selectedOption = 0;
+            part.material = BodyMaterials[bodyIndex];
         }
-
-        UpdateWeapon();
-    }
-
-    public void PrevOption()
-    {
-        selectedOption--;
-
-        if (selectedOption <= 0)
-        {
-            selectedOption = weapons.Length - 1;
-        }
-
-        UpdateWeapon();
-    }
-
-    private void UpdateWeapon()
-    {
-        if (currentWeaponInstance != null)
-        {
-            Destroy(currentWeaponInstance);
-        }
-
-        // Show the current weapon
-        WeaponBase currentWeapon = GetCurrentWeapon();
-        currentWeaponInstance = Instantiate(currentWeapon.GunPrefab);
-        currentWeaponInstance.transform.position = weaponCamera.transform.position + weaponCamera.transform.forward * 2f;
-        weaponCamera.targetTexture = renderTexture;
-        weaponName.text = currentWeapon.name;
     }
 
     public void Back()
@@ -71,10 +51,61 @@ public class Inventory : MonoBehaviour
         mainMenu.gameObject.SetActive(true);
     }
 
-    public void Upgrade()
+    public int NextOption(int currentIndex, int maxCount)
     {
-        // TODO: create the upgrade window
-        inventory.gameObject.SetActive(false);
-        upgrade.gameObject.SetActive(true);
+        currentIndex++;
+
+        if (currentIndex >= maxCount)
+        {
+            currentIndex = 0;
+        }
+
+        return currentIndex;
+    }   
+
+    public int PrevOption(int currentIndex, int maxCount)
+    {
+        currentIndex--;
+
+        if (currentIndex < 0)
+        {
+            currentIndex = maxCount - 1;
+        }
+
+        return currentIndex;
+    }
+
+    public void UpdateWeaponMaterial(string direction)
+    {
+        if (direction == "Right")
+        {
+            WeaponIndex = NextOption(WeaponIndex, weaponMaterials.Count);           
+        }
+        else
+        {
+            WeaponIndex = PrevOption(WeaponIndex, weaponMaterials.Count);
+        }
+
+        weaponPreview.material = weaponMaterials[WeaponIndex];
+        materialWeaponPreview.material = weaponMaterials[WeaponIndex];
+    }
+
+    public void UpdateBodyMaterial(string direction)
+    {
+        if (direction == "Right")
+        {
+            bodyIndex = NextOption(bodyIndex, bodyMaterials.Count);
+        }
+        else
+        {
+            bodyIndex = PrevOption(bodyIndex, bodyMaterials.Count);
+        }
+
+        materialBodyPreview.material = BodyMaterials[bodyIndex];
+
+        foreach (var part in bodyPreview)
+        {
+            part.material = BodyMaterials[bodyIndex];
+        }
     }
 }
