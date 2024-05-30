@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 541d4571196460943bbda8aefe2121f7
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - popUp: {fileID: 4866315036281099418, guid: 67efecd465a7ee44f9488c45e78388f4, type: 3}
+  - parentCanvas: {instanceID: 0}
+  - popUpText: {instanceID: 0}
+  - popUpTitle: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

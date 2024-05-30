@@ -1,9 +1,7 @@
-using Mono.Reflection;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.UI.Image;
 
 public class AmmoMovement : MonoBehaviour
 {
@@ -21,6 +19,10 @@ public class AmmoMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (PopUpScreen.Instance.gameObject.activeSelf) {
+            return;
+        }
+
         transform.Translate(speed * Time.deltaTime * Vector3.forward);
         CheckCollision();
     }

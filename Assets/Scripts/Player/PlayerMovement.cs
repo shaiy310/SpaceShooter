@@ -18,6 +18,7 @@ public class PlayerMovement : MonoBehaviour
     // Movement
     Vector3 startingPosition;
     Quaternion startingRotation;
+
     CharacterController cc;
     float runSpeed;
     float walkSpeed;
@@ -37,6 +38,11 @@ public class PlayerMovement : MonoBehaviour
     // Animations
     Animator playerMovementAnim;
     //bool animateMove;
+
+    // Inventory
+    Inventory skin;
+    [SerializeField] Renderer playerWeaponMaterial;
+    [SerializeField] Renderer[] playerBodyMaterial;
 
     // Start is called before the first frame update
     void Start()
@@ -62,11 +68,23 @@ public class PlayerMovement : MonoBehaviour
 
         // Animations
         playerMovementAnim = GetComponent<Animator>();
+
+        // Inventory
+        playerWeaponMaterial.material = skin.WeaponMaterials[Inventory.WeaponIndex];
+
+        foreach (var part in playerBodyMaterial)
+        {
+            part.material = skin.BodyMaterials[Inventory.bodyIndex];
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (PopUpScreen.Instance.gameObject.activeSelf) {
+            return;
+        }
+
         if (isRespawning) {
             return;
         }

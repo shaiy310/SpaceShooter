@@ -17,7 +17,7 @@ public class Timer : MonoBehaviour
     {
         Instance = this;
         minute = 60f;
-        firstPhaseMinutes = 0.5f;
+        firstPhaseMinutes = 15f;
         remainingTime = firstPhaseMinutes * minute;
     }
 
@@ -30,6 +30,8 @@ public class Timer : MonoBehaviour
     {
         while (true)
         {
+			yield return new WaitUntil(() => !PopUpScreen.Instance.gameObject.activeSelf);
+			
             if (remainingTime > 0)
             {
                 remainingTime--;
@@ -51,6 +53,6 @@ public class Timer : MonoBehaviour
     public void StopTimer()
     {
         StopCoroutine(RunTimer());
-        timerText.enabled = false;
+        timerText.gameObject.SetActive(false);
     }
 }
