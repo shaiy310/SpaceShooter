@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class PlayerRayCast : MonoBehaviour
 {
+    public static PlayerRayCast instance;
+
     // Shots
     [SerializeField] Camera cameraPos;
     [SerializeField] LayerMask rayCastHitable;
@@ -21,6 +23,7 @@ public class PlayerRayCast : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        instance = this;
         maxDistance = 3;
         shootingPositions = new Dictionary<State, Vector3>() {
             { State.Standing, new Vector3(.25f, 1.6f, 1.5f) }
@@ -43,28 +46,31 @@ public class PlayerRayCast : MonoBehaviour
             return;
         }
 
-        if (hit.collider.TryGetComponent<IInteractable>(out var console)) {
+        if (hit.collider.TryGetComponent<IInteractable>(out var interactable)) {
             instructions.enabled = true;
 
             if (Input.GetKeyDown(KeyCode.C)) {
-                console.Interact();
+                interactable.Interact();
             }
         }
     }
 
     void Shoot()
     {
-        Debug.Log("TODO: get state from player movement script");
+        //Debug.Log("TODO: get state from player movement script");
         State state = State.Standing;
 
         if (Input.GetMouseButton(0))
         {
             playShotAnim.SetBool("isBurstShot", true);
 
-            var rotation = transform.localRotation.eulerAngles + 90 * Vector3.right;
+            //var rotation = transform.localRotation.eulerAngles + 90 * Vector3.right;
             Instantiate(weapon.Ammo.Bullet,
                 transform.TransformPoint(shootingPositions[state]),
-                Quaternion.Euler(rotation)
+                //Quaternion.identity
+                //Quaternion.LookRotation(cameraPos.transform.forward, cameraPos.transform.up) * Quaternion.Euler(90, 0, 0)
+                Quaternion.LookRotation(cameraPos.transform.forward)
+                //Quaternion.Euler(rotation)
             );
         }
         else
@@ -77,8 +83,8 @@ public class PlayerRayCast : MonoBehaviour
 
     }
 
-    public void SwitchWeapon()
+    public void SwitchWeapon(WeaponBase newWeapon)
     {
-        Debug.Log("switch weapon");
+        weapon = newWeapon;
     }
 }
