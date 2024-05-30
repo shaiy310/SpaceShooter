@@ -18,6 +18,7 @@ public class PlayerMovement : MonoBehaviour
     // Movement
     Vector3 startingPosition;
     Quaternion startingRotation;
+
     CharacterController cc;
     float runSpeed;
     float walkSpeed;
@@ -48,7 +49,6 @@ public class PlayerMovement : MonoBehaviour
     {
         Instance = this;
 
-        Cursor.visible = false;
         startingPosition = transform.position;
         startingRotation = transform.rotation;
 
@@ -80,6 +80,10 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (PopUpScreen.Instance.gameObject.activeSelf) {
+            return;
+        }
+
         if (isRespawning) {
             return;
         }
@@ -88,7 +92,7 @@ public class PlayerMovement : MonoBehaviour
         Movement();
         IsTouchTheGround();
         Jump();
-        
+
         if (transform.position.y < 105) {
             // In case the player falls off the map.
             StartCoroutine(Respawn());

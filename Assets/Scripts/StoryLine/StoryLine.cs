@@ -14,17 +14,20 @@ public class StoryLine : MonoBehaviour
 
     private void Start()
     {
-        Instance = this;
+		Instance = this;
+		
+        PopUpScreen.Instance.ShowPopUpScreen("Active the space station air machine within the limited time");
 
         decreaseDmgMinute = Timer.remainingTime / 10;
         damageDecreasePerSec = Mathf.Round((HealthManager.instance.HealthAmount / decreaseDmgMinute) * 10) / 10f + 0.1f;
-
-        StartCoroutine(DealDamage());
+        
+		StartCoroutine(DealDamage());
     }
 
     public void CompleteStoryLine()
     {
         StopCoroutine(DealDamage());
+
     }
 
     private IEnumerator DealDamage()
