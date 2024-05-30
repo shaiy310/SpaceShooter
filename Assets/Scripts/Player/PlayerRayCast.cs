@@ -33,7 +33,7 @@ public class PlayerRayCast : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-		if (PopUpScreen.Instance.gameObject.activeSelf)
+        if (PopUpScreen.Instance.gameObject.activeSelf)
         {
             return;
         }

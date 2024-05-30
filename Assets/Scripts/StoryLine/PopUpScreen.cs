@@ -24,7 +24,7 @@ public class PopUpScreen : MonoBehaviour
         popUpTitle.text = "PHASE ONE";
     }
 
-    public void cancelPopUp()
+    public void CancelPopUp()
     {
         gameObject.SetActive(false);
         Cursor.visible = false;

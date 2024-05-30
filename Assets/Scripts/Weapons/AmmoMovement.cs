@@ -18,11 +18,10 @@ public class AmmoMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-		if (PopUpScreen.Instance.gameObject.activeSelf)
-        {
+        if (PopUpScreen.Instance.gameObject.activeSelf) {
             return;
         }
-		
+
         transform.Translate(speed * Time.deltaTime * Vector3.forward);
         CheckCollision();
     }
