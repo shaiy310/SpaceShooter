@@ -23,7 +23,8 @@ public class OxygenMachine : MonoBehaviour
 
             if (index == particleSystems.Count) {
                 // End Mission - Success!
-                Debug.Log("TODO: End Mission - Success!");
+                Timer.Instance.StopTimer();
+                StoryLine.Instance.CompleteStoryLine();
             }
         }
     }

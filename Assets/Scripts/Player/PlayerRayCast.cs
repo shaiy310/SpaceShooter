@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PlayerRayCast : MonoBehaviour
 {
-    public static PlayerRayCast instance;
+    public static PlayerRayCast Instance { get; private set; }
 
     // Shots
     [SerializeField] Camera cameraPos;
@@ -23,7 +23,7 @@ public class PlayerRayCast : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        instance = this;
+        Instance = this;
         maxDistance = 3;
         shootingPositions = new Dictionary<State, Vector3>() {
             { State.Standing, new Vector3(.25f, 1.6f, 1.5f) }
