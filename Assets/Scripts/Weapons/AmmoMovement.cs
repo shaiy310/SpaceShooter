@@ -44,7 +44,7 @@ public class AmmoMovement : MonoBehaviour
         }
 
         if (hit.collider.CompareTag("Player")) {
-            HealthManager.instance.TakeDamage(power);
+            HealthManager.Instance.TakeDamage(power);
         }
 
         SelfDestruct();

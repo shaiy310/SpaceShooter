@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class StoryLine : MonoBehaviour
@@ -8,6 +10,8 @@ public class StoryLine : MonoBehaviour
     public static StoryLine Instance { get; private set; }
 
     [SerializeField] Image fadedScreen;
+    [SerializeField] GameObject exitButton;
+    [SerializeField] GameObject retryButton;
 
     private float decreaseDmgMinute;
     private float damageDecreasePerSec;
@@ -16,10 +20,10 @@ public class StoryLine : MonoBehaviour
     {
 		Instance = this;
 		
-        PopUpScreen.Instance.ShowPopUpScreen("Active the space station air machine within the limited time");
+        //PopUpScreen.Instance.ShowPopUpScreen("Active the space station air machine within the limited time");
 
         decreaseDmgMinute = Timer.remainingTime / 10;
-        damageDecreasePerSec = Mathf.Round((HealthManager.instance.HealthAmount / decreaseDmgMinute) * 10) / 10f + 0.1f;
+        damageDecreasePerSec = Mathf.Round((HealthManager.Instance.HealthAmount / decreaseDmgMinute) * 10) / 10f + 0.1f;
         
 		StartCoroutine(DealDamage());
     }
@@ -27,6 +31,9 @@ public class StoryLine : MonoBehaviour
     public void CompleteStoryLine()
     {
         StopCoroutine(DealDamage());
+        PopUpScreen.Instance.ShowPopUpScreen("PHASE ONE COMPLETED! YOU GOT 10 COINS!");
+        exitButton.SetActive(true);
+        Coins.mainCoins += 10;
     }
 
     private IEnumerator DealDamage()
@@ -37,16 +44,29 @@ public class StoryLine : MonoBehaviour
         StartCoroutine(FadedScreen());
     }
 
-    // If hp got to 0:
-    // Active die animation
-    // Stop the game
-    // Show the player a screen 
+    public void PlayerDead()
+    {
+        StopCoroutine(DealDamage());
+        // Active die animation
+        // Make ienumarator, wait until the animation is end
+        PopUpScreen.Instance.ShowPopUpScreen("You are dead, What whould like to do?");
+        exitButton.SetActive(true);
+        retryButton.SetActive(true);
+    }
+
+    public void RetryAgain()
+    {
+        StartCoroutine(PlayerMovement.Instance.Respawn());
+        PopUpScreen.Instance.CancelPopUp();
+        exitButton.SetActive(false);
+        retryButton.SetActive(false);
+    }
 
     IEnumerator DecreasePlayerHealth()
     {
         while (Timer.remainingTime > 0)
         {
-            HealthManager.instance.TakeDamage(damageDecreasePerSec);
+            HealthManager.Instance.TakeDamage(damageDecreasePerSec);
             yield return new WaitForSeconds(1f);
         }
     }
@@ -79,5 +99,24 @@ public class StoryLine : MonoBehaviour
                 yield return null;
             }
         }
+    }
+
+    private void Update()
+    {
+        PauseMenu();
+    }
+
+    void PauseMenu()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            PopUpScreen.Instance.ShowPopUpScreen("What would you like to do?");
+            exitButton.SetActive(true);
+        }
+    }
+
+    public void ExitGame()
+    {
+        SceneManager.LoadScene("MainMenu");
     }
 }

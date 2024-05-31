@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class HealthManager : MonoBehaviour
 {
-    public static HealthManager instance;
+    public static HealthManager Instance;
 
     [SerializeField] TextMeshProUGUI healthText;
     [SerializeField] Image healthBar;
@@ -15,7 +15,7 @@ public class HealthManager : MonoBehaviour
 
     void Start()
     {
-        instance = this;
+        Instance = this;
         HealthAmount = 100f;
         FillAmount();
     }
@@ -24,7 +24,7 @@ public class HealthManager : MonoBehaviour
     {
         HealthAmount = Mathf.Clamp(HealthAmount - damage, 0, 100);
         if (HealthAmount == 0) {
-            StartCoroutine(PlayerMovement.Instance.Respawn());
+            StoryLine.Instance.PlayerDead();
             HealthAmount = 100;
         } else {
             StartCoroutine(Fadder.Instance.FadeAnimation(Color.red, 0.2f, 0.75f));
