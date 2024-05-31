@@ -40,7 +40,6 @@ public class PlayerMovement : MonoBehaviour
     //bool animateMove;
 
     // Inventory
-    Inventory skin;
     [SerializeField] Renderer playerWeaponMaterial;
     [SerializeField] Renderer[] playerBodyMaterial;
 
@@ -69,11 +68,10 @@ public class PlayerMovement : MonoBehaviour
         playerMovementAnim = GetComponent<Animator>();
 
         // Inventory
-        playerWeaponMaterial.material = skin.WeaponMaterials[Inventory.WeaponIndex];
+        playerWeaponMaterial.material = Inventory.Instance.WeaponMaterials[Inventory.WeaponIndex];
 
-        foreach (var part in playerBodyMaterial)
-        {
-            part.material = skin.BodyMaterials[Inventory.bodyIndex];
+        foreach (var part in playerBodyMaterial) {
+            part.material = Inventory.Instance.BodyMaterials[Inventory.bodyIndex];
         }
     }
 
