@@ -68,10 +68,12 @@ public class PlayerMovement : MonoBehaviour
         playerMovementAnim = GetComponent<Animator>();
 
         // Inventory
-        playerWeaponMaterial.material = Inventory.Instance.WeaponMaterials[Inventory.WeaponIndex];
+        if (Inventory.Instance?.WeaponMaterials != null) {
+            playerWeaponMaterial.material = Inventory.Instance.WeaponMaterials[Inventory.WeaponIndex];
 
-        foreach (var part in playerBodyMaterial) {
-            part.material = Inventory.Instance.BodyMaterials[Inventory.bodyIndex];
+            foreach (var part in playerBodyMaterial) {
+                part.material = Inventory.Instance.BodyMaterials[Inventory.bodyIndex];
+            }
         }
     }
 
