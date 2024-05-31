@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
-    //Variables
+    public static Inventory Instance { get; private set; }
+
+    // Variables
     [SerializeField] List<Material> weaponMaterials = new List<Material>();
     [SerializeField] List<Material> bodyMaterials = new List<Material>();
     [SerializeField] Renderer weaponPreview;
@@ -15,8 +17,8 @@ public class Inventory : MonoBehaviour
     [SerializeField] GameObject mainMenu;
     [SerializeField] GameObject inventory;
 
-    public static int WeaponIndex;
-    public static int bodyIndex;
+    public static int WeaponIndex = 0;
+    public static int bodyIndex = 0;
 
     public List<Material> WeaponMaterials
     {
@@ -30,11 +32,13 @@ public class Inventory : MonoBehaviour
         set { bodyMaterials = value; }
     }
 
+    private void Awake()
+    {
+        Instance = this;
+    }
+
     private void Start()
     {
-        WeaponIndex = 0;
-        bodyIndex = 0;
-
         weaponPreview.material = weaponMaterials[WeaponIndex];
         materialWeaponPreview.material = weaponMaterials[WeaponIndex];
 
@@ -47,8 +51,8 @@ public class Inventory : MonoBehaviour
 
     public void Back()
     {
-        inventory.gameObject.SetActive(false);
-        mainMenu.gameObject.SetActive(true);
+        inventory.SetActive(false);
+        mainMenu.SetActive(true);
     }
 
     public int NextOption(int currentIndex, int maxCount)

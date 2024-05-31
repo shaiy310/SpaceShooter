@@ -30,7 +30,7 @@ public class Timer : MonoBehaviour
     {
         while (true)
         {
-			yield return new WaitUntil(() => !PopUpScreen.Instance.gameObject.activeSelf);
+            yield return new WaitUntil(() => !PopUpScreen.Instance.gameObject.activeSelf);
 			
             if (remainingTime > 0)
             {

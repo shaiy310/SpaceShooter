@@ -7,6 +7,7 @@ public class AmmoMovement : MonoBehaviour
 {
     [SerializeField] LayerMask hitable;
     [SerializeField] float speed = 35;
+    [SerializeField] int power = 5;
 
     // Start is called before the first frame update
     void Start()
@@ -38,11 +39,12 @@ public class AmmoMovement : MonoBehaviour
         }
 
         if (hit.collider.CompareTag("Enemy")) {
-            Destroy(hit.collider.gameObject);
+            var enemy = hit.collider.GetComponent<IEnemy>();
+            enemy.TakeDamage(power);
         }
 
         if (hit.collider.CompareTag("Player")) {
-            HealthManager.instance.TakeDamage(5);
+            HealthManager.instance.TakeDamage(power);
         }
 
         SelfDestruct();

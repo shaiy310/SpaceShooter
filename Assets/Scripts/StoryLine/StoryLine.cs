@@ -27,7 +27,6 @@ public class StoryLine : MonoBehaviour
     public void CompleteStoryLine()
     {
         StopCoroutine(DealDamage());
-
     }
 
     private IEnumerator DealDamage()

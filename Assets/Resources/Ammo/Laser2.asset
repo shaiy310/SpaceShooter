@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: befe77dbf6ea7084690bbdf153de5b1c, type: 3}
   m_Name: Laser2
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 8117487832323461919, guid: 3b4377449efb4ad45b253d1de1b00396, type: 3}
+  bulletPrefab: {fileID: -6963069374149449262, guid: 3b4377449efb4ad45b253d1de1b00396, type: 3}
