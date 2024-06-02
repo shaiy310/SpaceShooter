@@ -20,7 +20,8 @@ public class StoryLine : MonoBehaviour
     {
 		Instance = this;
 		
-        //PopUpScreen.Instance.ShowPopUpScreen("Active the space station air machine within the limited time");
+        PopUpScreen.Instance.ShowPopUpScreen("Active the space station air machine within the limited time");
+
 
         decreaseDmgMinute = Timer.remainingTime / 10;
         damageDecreasePerSec = Mathf.Round((HealthManager.Instance.HealthAmount / decreaseDmgMinute) * 10) / 10f + 0.1f;
@@ -49,7 +50,8 @@ public class StoryLine : MonoBehaviour
         StopCoroutine(DealDamage());
         // Active die animation
         // Make ienumarator, wait until the animation is end
-        PopUpScreen.Instance.ShowPopUpScreen("You are dead, What whould like to do?");
+        PopUpScreen.Instance.ShowPopUpScreen("You are dead, What would you like to do?");
+
         exitButton.SetActive(true);
         retryButton.SetActive(true);
     }
