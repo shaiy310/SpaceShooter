@@ -36,6 +36,10 @@ public class RobotSphereEngine : MonoBehaviour, IEnemy
 
     private void Update()
     {
+        if (PopUpScreen.Instance.gameObject.activeSelf) {
+            return;
+        }
+
         Shoot();
     }
 
@@ -87,7 +91,7 @@ public class RobotSphereEngine : MonoBehaviour, IEnemy
         transform.LookAt(target);
         while (Vector3.Distance(transform.position, target) > 0.25f) {
             transform.position += Time.deltaTime * speedVector;
-            yield return new WaitUntil(() => !pausePatrol);
+            yield return new WaitUntil(() => !pausePatrol && !PopUpScreen.Instance.gameObject.activeSelf);
         }
     }
 
