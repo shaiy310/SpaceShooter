@@ -28,8 +28,10 @@ public class Shop : MonoBehaviour
     {
         WeaponIndex = 0;
         bodyIndex = 0;
-        
-        StartCoroutine(ShowCoins());
+
+        coin.text = Coins.mainCoins.ToString();
+        coinToBuyWeapon.text = Coins.shopCoins.ToString();
+        coinToBuyBody.text = Coins.shopCoins.ToString();
 
         weaponPreview.material = materials[WeaponIndex];
         materialWeaponPreview.material = materials[WeaponIndex];
@@ -42,15 +44,6 @@ public class Shop : MonoBehaviour
         }
 
         newMaterials = FindObjectOfType<Inventory>();
-    }
-
-    IEnumerator ShowCoins()
-    {
-        yield return new WaitUntil(() => Coins.mainCoins > 0 && Coins.shopCoins > 0);
-
-        coin.text = Coins.mainCoins.ToString();
-        coinToBuyWeapon.text = Coins.shopCoins.ToString();
-        coinToBuyBody.text = Coins.shopCoins.ToString();
     }
 
     public void Back()

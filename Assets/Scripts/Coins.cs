@@ -8,7 +8,7 @@ public class Coins : MonoBehaviour
     public static int shopCoins;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         shopCoins = 2;
         mainCoins = 10;

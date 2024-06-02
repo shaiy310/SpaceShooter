@@ -10,16 +10,24 @@ public class RobotSphereEngine : MonoBehaviour, IEnemy
     [SerializeField] List<Vector3> Routes;
 
     Animator animator;
+    Vector3 startingPosition;
+    Quaternion startingRotation;
+
     float speed;
     float shootingCoolDown;
     float lastShotTime;
+    bool pausePatrol;
 
     // Start is called before the first frame update
     void Start()
     {
         animator = GetComponent<Animator>();
+        startingPosition = transform.position;
+        startingRotation = transform.rotation;
+
         speed = 2f;
         shootingCoolDown = .5f;
+        pausePatrol = false;
 
         if (Routes.Count > 0) {
             StartCoroutine(Patrol());
@@ -28,6 +36,10 @@ public class RobotSphereEngine : MonoBehaviour, IEnemy
 
     private void Update()
     {
+        if (PopUpScreen.Instance.gameObject.activeSelf) {
+            return;
+        }
+
         Shoot();
     }
 
@@ -38,15 +50,21 @@ public class RobotSphereEngine : MonoBehaviour, IEnemy
             return;
         }
 
-        if (!Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, 8f, hitable)) {
+        //if (!Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, 8f, hitable)) {
+        //    return;
+        //}
+        if (Vector3.Distance(PlayerMovement.Instance.transform.position, transform.position) > 8) {
+            pausePatrol = false;
             return;
         }
+
+        pausePatrol = true;
 
         // Shoot at player
         var origin = transform.position + new Vector3(0, 0.55f, 0.06f);
         Instantiate(laser.Bullet.gameObject,
             origin,
-            Quaternion.LookRotation((hit.collider.transform.position + Vector3.up - origin))
+            Quaternion.LookRotation((PlayerMovement.Instance.transform.position + Vector3.up - origin))
         );
         lastShotTime = Time.time;
     }
@@ -73,19 +91,47 @@ public class RobotSphereEngine : MonoBehaviour, IEnemy
         transform.LookAt(target);
         while (Vector3.Distance(transform.position, target) > 0.25f) {
             transform.position += Time.deltaTime * speedVector;
-            yield return null;
+            yield return new WaitUntil(() => !pausePatrol && !PopUpScreen.Instance.gameObject.activeSelf);
         }
     }
 
     public void TakeDamage(int amount)
     {
         health -= amount;
-        print(health);
         if (health <= 0) {
-            Debug.Log("dead", this);
-            var mr = GetComponentInChildren<MeshRenderer>();
-            mr.material.color = Color.red;
-            //Destroy(gameObject);
+            StartCoroutine(KillAnimation());
+        } else {
+            StartCoroutine(HitAnimation());
         }
+    }
+
+    IEnumerator HitAnimation()
+    {
+        var renderer = GetComponentInChildren<MeshRenderer>();
+        
+        for (int i = 0; i < 3; ++i) {
+            renderer.material.color = Color.red;
+            yield return new WaitForSeconds(0.2f);
+
+            renderer.material.color = Color.white;
+            yield return new WaitForSeconds(0.2f);
+        }
+    }
+
+    IEnumerator KillAnimation()
+    {
+        var childObject = transform.GetChild(0).gameObject;
+        for (int i = 0; i < 3; ++i) {
+            childObject.SetActive(false);
+            yield return new WaitForSeconds(0.2f);
+
+            childObject.SetActive(true);
+            yield return new WaitForSeconds(0.2f);
+        }
+
+        Coins.mainCoins += 2;
+
+        yield return new WaitForSeconds(2f);
+        transform.SetPositionAndRotation(startingPosition, startingRotation);
     }
 }

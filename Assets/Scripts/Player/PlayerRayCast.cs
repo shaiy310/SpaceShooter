@@ -11,7 +11,6 @@ public class PlayerRayCast : MonoBehaviour
     [SerializeField] Camera cameraPos;
     [SerializeField] LayerMask rayCastHitable;
     [SerializeField] Animator playShotAnim;
-    Dictionary<State, Vector3> shootingPositions;
 
     // Interactions
     [SerializeField] TextMeshProUGUI instructions;
@@ -25,9 +24,6 @@ public class PlayerRayCast : MonoBehaviour
     {
         Instance = this;
         maxDistance = 3;
-        shootingPositions = new Dictionary<State, Vector3>() {
-            { State.Standing, new Vector3(.25f, 1.6f, 1.5f) }
-        };
     }
 
     // Update is called once per frame
@@ -62,20 +58,13 @@ public class PlayerRayCast : MonoBehaviour
 
     void Shoot()
     {
-        //Debug.Log("TODO: get state from player movement script");
-        State state = State.Standing;
-
         if (Input.GetMouseButton(0))
         {
             playShotAnim.SetBool("isBurstShot", true);
 
-            //var rotation = transform.localRotation.eulerAngles + 90 * Vector3.right;
             Instantiate(ammo.Bullet.gameObject,
-                transform.TransformPoint(shootingPositions[state]),
-                //Quaternion.identity
-                //Quaternion.LookRotation(cameraPos.transform.forward, cameraPos.transform.up) * Quaternion.Euler(90, 0, 0)
+                transform.TransformPoint(new Vector3(.25f, 1.6f, 1.5f)),
                 Quaternion.LookRotation(cameraPos.transform.forward)
-                //Quaternion.Euler(rotation)
             );
         }
         else
