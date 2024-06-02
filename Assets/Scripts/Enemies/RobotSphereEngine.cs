@@ -10,6 +10,9 @@ public class RobotSphereEngine : MonoBehaviour, IEnemy
     [SerializeField] List<Vector3> Routes;
 
     Animator animator;
+    Vector3 startingPosition;
+    Quaternion startingRotation;
+
     float speed;
     float shootingCoolDown;
     float lastShotTime;
@@ -19,6 +22,9 @@ public class RobotSphereEngine : MonoBehaviour, IEnemy
     void Start()
     {
         animator = GetComponent<Animator>();
+        startingPosition = transform.position;
+        startingRotation = transform.rotation;
+
         speed = 2f;
         shootingCoolDown = .5f;
         pausePatrol = false;
@@ -120,6 +126,8 @@ public class RobotSphereEngine : MonoBehaviour, IEnemy
         }
 
         Coins.mainCoins += 2;
-        Destroy(gameObject);
+
+        yield return new WaitForSeconds(2f);
+        transform.SetPositionAndRotation(startingPosition, startingRotation);
     }
 }

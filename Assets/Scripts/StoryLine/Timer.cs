@@ -19,6 +19,7 @@ public class Timer : MonoBehaviour
         minute = 60f;
         firstPhaseMinutes = 15f;
         remainingTime = firstPhaseMinutes * minute;
+        UpdateTimeUI();
     }
 
     void Start()
@@ -42,12 +43,18 @@ public class Timer : MonoBehaviour
                 timerText.color = Color.red;      
             }
 
-            int minutes = Mathf.FloorToInt(remainingTime / minute);
-            int seconds = Mathf.FloorToInt(remainingTime % minute);
-            timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+            UpdateTimeUI();
 
             yield return new WaitForSeconds(1f);
         }
+    }
+
+    private void UpdateTimeUI()
+    {
+
+        int minutes = Mathf.FloorToInt(remainingTime / minute);
+        int seconds = Mathf.FloorToInt(remainingTime % minute);
+        timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
     }
 
     public void StopTimer()
